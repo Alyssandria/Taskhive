@@ -2,9 +2,19 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ProjectTeam extends Model
 {
-    //
+    use HasFactory;
+
+    protected $fillable = [
+        'team_id',
+        'project_id',
+    ];
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 }

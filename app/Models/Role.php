@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class Role extends Model
 {
+
     protected $fillable = [
         'name',
         'slug'
