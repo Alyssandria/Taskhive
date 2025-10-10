@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+use App\Http\Controllers\DashboardController;
 
-Route::get('/', function () {
-    return Inertia::render('welcome');
-})->name('home');
+Route::controller(DashboardController::class)
+    ->group(function () {
+        Route::get('/', 'index')->name('home');
+    });
+

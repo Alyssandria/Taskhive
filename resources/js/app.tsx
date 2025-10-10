@@ -1,14 +1,25 @@
 import '../css/app.css';
 
 import { createInertiaApp } from '@inertiajs/react';
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+import { ReactNode } from 'react';
 import { createRoot } from 'react-dom/client';
+import Layout from './layouts/layout';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
+type TPage = {
+    default: {
+        layout?: ReactNode | ((page: ReactNode) => ReactNode)
+    }
+}
 createInertiaApp({
-    title: (title) => title ? `${title} - ${appName}` : appName,
-    resolve: (name) => resolvePageComponent(`./pages/${name}.tsx`, import.meta.glob('./pages/**/*.tsx')),
+    title: (title) => title ? `${title} | ${appName}` : appName,
+    resolve: (name) => {
+        const pages: Record<string, TPage> = import.meta.glob('./pages/**/*.tsx', { eager: true });
+        const page = pages[`./pages/${name}.tsx`];
+        page.default.layout = page.default.layout || ((page) => <Layout children={page} />)
+        return page;
+    },
     setup({ el, App, props }) {
         const root = createRoot(el);
 

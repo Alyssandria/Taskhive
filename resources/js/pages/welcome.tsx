@@ -1,6 +1,7 @@
 import { Head } from '@inertiajs/react';
 
-export default function Welcome() {
+export default function Welcome({ server }) {
+    console.log(server);
     return (
         <>
             <Head title="Welcome">

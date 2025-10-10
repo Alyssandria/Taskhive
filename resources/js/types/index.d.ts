@@ -1,5 +1,14 @@
 export interface Auth {
     user: User;
+    teams: {
+        id: number,
+        name: string,
+        description: string,
+        projects: {
+            name: string,
+            id: number
+        }[],
+    }[]
 }
 
 export interface SharedData {
