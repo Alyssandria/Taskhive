@@ -19,15 +19,29 @@ class ProjectController extends Controller
             return abort(404);
         }
 
-        dd($projects->getWithTasks($project));
-
         return Inertia::render("projects/show", [
-            'project' => collect($project)
-                ->only([
-                    'id',
-                    'name',
-                    'description'
-                ])
+            'server' => [
+                'project' => [
+                    ...collect($project)
+                        ->only([
+                            'id',
+                            'name',
+                            'description'
+                        ]),
+                ],
+                'users' => $projects
+                    ->getProjectUsers($project),
+                'tasks' => $project
+                    ->tasks()
+                    ->with(['users:id,avatar,email', 'status'])
+                    ->get()
+                    ->map(function ($task) {
+                        return [
+                            ...collect($task),
+                            'users' => $task->users->makeHidden('pivot')
+                        ];
+                    })
+            ]
         ]);
     }
 }

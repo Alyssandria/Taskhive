@@ -26,7 +26,7 @@ class TaskSeeder extends Seeder
                 'project_id' => $user->teams()->inRandomOrder()->first()->projects()->inRandomOrder()->first()->id,
                 'status_id' => Status::inRandomOrder()->first()->id
             ]);
-            $user->tasks()->attach($task->id);
+            $user->tasks()->attach(fake()->numberBetween(1, $i + 1));
         }
     }
 }

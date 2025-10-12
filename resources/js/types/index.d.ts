@@ -11,6 +11,22 @@ export interface Auth {
     }[]
 }
 
+export interface Project {
+    id: number;
+    name: string;
+    description: string;
+}
+
+export interface Task {
+    id: number;
+    title: string;
+    description: string;
+    status_id: number;
+    start: string;
+    due: string;
+    project_id: number;
+}
+
 export interface SharedData {
     name: string;
     quote: { message: string; author: string };
@@ -20,11 +36,10 @@ export interface SharedData {
 
 export interface User {
     id: number;
-    name: string;
+    first_name: string;
+    last_name: string;
     email: string;
     avatar?: string;
-    email_verified_at: string | null;
     created_at: string;
     updated_at: string;
-    [key: string]: unknown; // This allows for additional properties...
 }

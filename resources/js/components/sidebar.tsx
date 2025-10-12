@@ -44,7 +44,7 @@ export function AppSidebar() {
     console.log(auth);
 
     return (
-        <Sidebar collapsible="icon" variant="inset">
+        <Sidebar collapsible="icon">
             <SidebarHeader className="border-b p-4">
                 <SidebarMenu className="flex flex-row">
                     <SidebarMenuButton>

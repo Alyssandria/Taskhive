@@ -40,7 +40,7 @@ export default function Layout({ children }: ComponentProps<"div">) {
                         </Avatar>
                     </div>
                 </header>
-                <main>
+                <main className="size-full p-4">
                     {children}
                 </main>
             </div>
