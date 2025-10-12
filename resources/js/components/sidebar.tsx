@@ -16,7 +16,7 @@ import {
     SidebarTrigger,
 } from "@/components/ui/sidebar"
 import { SharedData } from "@/types"
-import { usePage } from "@inertiajs/react"
+import { Link, usePage } from "@inertiajs/react"
 import { LogoIcon } from "./ui/logo";
 import { ChevronDown, ChevronRight, HomeIcon, PlusIcon, PlusSquareIcon, SquareCheck, Users } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
@@ -96,10 +96,12 @@ export function AppSidebar() {
                                                 {team.projects.map((project) => {
                                                     return (
                                                         <SidebarMenuSubItem className="flex items-center gap-2" key={project.id}>
-                                                            <div className="bg-orange-400 size-2 rounded-full" />
-                                                            <span>{project.name}</span>
+                                                            <Link href={`project/${project.id}`} className="flex w-full truncate gap-2 items-center">
+                                                                <div className="size-2 rounded-full bg-orange-400" />
+                                                                <span className="block w-full truncate">{project.name}</span>
+                                                            </Link>
                                                         </SidebarMenuSubItem>
-                                                    )
+                                                    );
                                                 })}
                                             </SidebarMenuSub>
                                         </CollapsibleContent>

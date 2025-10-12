@@ -9,6 +9,8 @@ use App\Models\Team;
 use App\Models\TeamUser;
 use App\Models\User;
 use App\Models\RoleUser;
+use App\Models\Status;
+use App\Models\Task;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -47,6 +49,14 @@ class DatabaseSeeder extends Seeder
             [
                 'check' => ProjectTeam::count() == 0,
                 'call' => fn () => ProjectTeam::factory(5)->create()
+            ],
+            [
+                'check' => Status::count() == 0,
+                'call' => fn () => $this->call(StatusSeeder::class)
+            ],
+            [
+                'check' => Task::count() == 0,
+                'call' => fn () => $this->call(TaskSeeder::class)
             ],
         ]);
 
