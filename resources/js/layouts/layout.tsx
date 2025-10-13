@@ -13,7 +13,7 @@ export default function Layout({ children }: ComponentProps<"div">) {
     return (
         <SidebarProvider>
             <AppSidebar />
-            <div className="w-full">
+            <div className="w-full flex flex-col lg:h-screen lg:overflow-hidden">
                 <header className="flex items-center justify-between p-4">
                     <div className="flex items-center w-1/2 gap-6">
                         <SidebarTrigger />
