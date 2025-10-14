@@ -12,16 +12,14 @@ import {
     SidebarMenuItem,
     SidebarMenuSub,
     SidebarMenuSubItem,
-    SidebarSeparator,
-    SidebarTrigger,
 } from "@/components/ui/sidebar"
 import { SharedData } from "@/types"
 import { Link, usePage } from "@inertiajs/react"
 import { LogoIcon } from "./ui/logo";
-import { ChevronDown, ChevronRight, HomeIcon, PlusIcon, PlusSquareIcon, SquareCheck, Users } from "lucide-react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
+import {  ChevronRight, HomeIcon, PlusSquareIcon, SquareCheck, Users } from "lucide-react";
 import { Collapsible } from "./ui/collapsible";
 import { CollapsibleContent, CollapsibleTrigger } from "@radix-ui/react-collapsible";
+import { cn } from "@/lib/utils";
 
 const navigation = [
     {
@@ -40,8 +38,20 @@ const navigation = [
 
 export function AppSidebar() {
     const { auth } = usePage<SharedData>().props
+    const {url} = usePage();
 
-    console.log(auth);
+    const isOpen = (team: {
+        id: number,
+        name: string,
+        description: string,
+        projects: {
+            name: string,
+            id: number
+        }[]
+    }
+    ) => {
+        return team.projects.some(el => url === `/project/${el.id}`);
+    }
 
     return (
         <Sidebar collapsible="icon">
@@ -83,7 +93,7 @@ export function AppSidebar() {
                         {auth.teams.map((team) => {
                             return (
                                 <SidebarMenuItem className="bg-gray-100 rounded-sm group-data-[collapsible=icon]:rounded-tr-none rounded-br-none" key={team.id}>
-                                    <Collapsible className="truncate group/collapsible p-2 flex flex-col gap-4 w-full">
+                                    <Collapsible defaultOpen={isOpen(team)} className="truncate group/collapsible p-2 flex flex-col gap-4 w-full">
                                         <div className="cursor-pointer flex items-center gap-2">
                                             <div className="bg-orange-400 size-2 rounded-full" />
                                             <CollapsibleTrigger className="cursor-pointer flex w-full justify-between items-center">
@@ -95,8 +105,14 @@ export function AppSidebar() {
                                             <SidebarMenuSub className="space-y-2">
                                                 {team.projects.map((project) => {
                                                     return (
-                                                        <SidebarMenuSubItem className="flex items-center gap-2" key={project.id}>
-                                                            <Link href={`project/${project.id}`} className="flex w-full truncate gap-2 items-center">
+                                                        <SidebarMenuSubItem
+                                                            className={cn(
+                                                                'flex items-center gap-2 px-2 rounded-sm',
+                                                                url === `/project/${project.id}` ? 'font-bold bg-gray-200' : 'bg-transparent font-normal',
+                                                            )}
+                                                            key={project.id}
+                                                        >
+                                                            <Link href={`project/${team.id}/${project.id}`} className="flex w-full items-center gap-2 truncate">
                                                                 <div className="size-2 rounded-full bg-orange-400" />
                                                                 <span className="block w-full truncate">{project.name}</span>
                                                             </Link>

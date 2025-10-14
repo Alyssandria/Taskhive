@@ -7,6 +7,10 @@ use App\Models\User;
 
 class TeamService
 {
+    public function getById (int $id) {
+        return Team::find($id);
+    }
+
     public function getWith(User $user, string $pivot, ?string $columns = null)
     {
         return $user->teams()->with($columns ? "$pivot:$columns" : "$pivot")->get()->mapWithKeys(function (Team $team) use ($pivot) {

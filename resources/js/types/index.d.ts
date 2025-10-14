@@ -24,7 +24,22 @@ export interface Task {
     status_id: number;
     start: string;
     due: string;
+    users: {
+        id: number;
+        first_name: string;
+        last_name: string;
+        email: string;
+        avatar?: string;
+    }[],
+    status: Status,
     project_id: number;
+}
+
+export interface Status {
+    id: number;
+    name: string;
+    description: string;
+    slug: string;
 }
 
 export interface SharedData {

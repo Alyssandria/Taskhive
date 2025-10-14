@@ -11,6 +11,6 @@ Route::controller(DashboardController::class)
 
 Route::controller(ProjectController::class)
     ->group(function () {
-        Route::get('/project/{id}', 'show')
+        Route::get('/project/{teamId}/{projectId}', 'show')
             ->name('project.show');
     });

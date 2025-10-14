@@ -2,35 +2,61 @@ import { TaskCard } from "@/components/task-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Project, Task, User } from "@/types";
+import { Separator } from "@radix-ui/react-separator";
 import { Users } from "lucide-react";
 import { ComponentProps } from "react";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
 
 type ShowProps = {
     server: {
         project: Project;
-        tasks: Task[];
+        tasks: Task[],
         users: User[];
+        team: {
+            id: number;
+            name: string;
+        };
     };
 } & ComponentProps<'div'>;
 
 export default function Show({ server }: ShowProps) {
     console.log(server);
     return (
-        <div className="flex flex-col  gap-10 size-full">
-            <section className="flex justify-between items-center">
+        <div className="flex size-full flex-col justify-between gap-8 p-10">
+            <section className="flex items-center justify-between">
                 <div className="space-y-6">
-                    <h1 className="text-4xl font-bold">{server.project.name}</h1>
+                    <div className="space-y-2">
+                        <Breadcrumb>
+                            <BreadcrumbList>
+                                <BreadcrumbItem>
+                                    <BreadcrumbLink href={`/team/${server.team.id}`}>{server.team.name}</BreadcrumbLink>
+                                </BreadcrumbItem>
+                                <BreadcrumbSeparator />
+                                <BreadcrumbItem>
+                                    <BreadcrumbPage>{server.project.name}</BreadcrumbPage>
+                                </BreadcrumbItem>
+                            </BreadcrumbList>
+                        </Breadcrumb>
+                        <h1 className="text-4xl font-bold">{server.project.name}</h1>
+                        <span className="block text-muted-foreground">{server.project.description}</span>
+                    </div>
                     <div className="flex">
                         {server.users.slice(0, 5).map((user, index) => {
                             return (
                                 <Avatar className="-ml-2 size-10 border-3 border-white" key={user.id}>
                                     <AvatarImage src={user.avatar} />
-                                    {
-                                        index === 4 ?
-                                            <AvatarFallback className="text-sm">{`+${server.users.length - 4}`}</AvatarFallback>
-                                            :
-                                            <AvatarFallback className="text-sm">{`${user.first_name[0].toUpperCase()} ${user.last_name[0].toUpperCase()}`}</AvatarFallback>
-                                    }
+                                    {index === 4 ? (
+                                        <AvatarFallback className="text-sm">{`+${server.users.length - 4}`}</AvatarFallback>
+                                    ) : (
+                                        <AvatarFallback className="text-sm">{`${user.first_name[0].toUpperCase()} ${user.last_name[0].toUpperCase()}`}</AvatarFallback>
+                                    )}
                                 </Avatar>
                             );
                         })}
@@ -44,33 +70,30 @@ export default function Show({ server }: ShowProps) {
                 </div>
             </section>
 
-            <section className="flex h-80 justify-between gap-12 overflow-hidden">
-                <div className="size-full flex flex-col gap-4">
-                    <div className="flex gap-2 border-b-3 border-black py-4 items-center w-1/2">
+            <section className="flex h-96 justify-between gap-12 overflow-hidden">
+                <div className="flex size-full flex-col gap-6">
+                    <div className="flex items-center gap-2">
                         <span>Tasks</span>
-                        <div className="px-2 text-xs flex items-center justify-center rounded-full border">{server.tasks.length}</div>
+                        <div className="flex items-center justify-center rounded-full border px-2 text-xs">{server.tasks.length}</div>
                     </div>
-                    <div className="grid grid-cols-3 h-full gap-4 overflow-y-auto">
-                        {server.tasks.map(el => {
-                            return (
-                                <TaskCard task={el} key={el.id} />
-                            )
+                    <Separator className="border-black border-b-3 md:w-2/5" />
+                    <div className="flex h-full flex-wrap items-center justify-center gap-4 overflow-y-auto pr-6">
+                        {server.tasks.map((el) => {
+                            return <TaskCard task={el} key={el.id} className="transition-all ease-in  hover:scale-95 hover:shadow-2xl"/>;
                         })}
-
                     </div>
                 </div>
-                <div className="w-3/5 h-full flex flex-col">
-                    <div className="flex gap-2 border-b-3 border-green-400 py-4 items-center">
+                <div className="flex h-full flex-col gap-6 md:min-w-[250px]">
+                    <div className="flex items-center gap-2 border-b-3 border-green-400 py-4">
                         <span>Completed</span>
-                        <div className="px-2 text-xs flex items-center justify-center rounded-full border">{server.tasks.filter(task => task.status.slug === 'completed').length}</div>
+                        <div className="flex items-center justify-center rounded-full border px-2 text-xs">
+                            {server.tasks.filter((task) => task.status.slug === 'completed').length}
+                        </div>
                     </div>
-                    <div className="grid gap-4 overflow-y-scroll">
-                        {server.tasks.map(el => {
-                            return (
-                                <TaskCard task={el} key={el.id} />
-                            )
+                    <div className="grid h-3/5 gap-4 overflow-y-scroll pr-6">
+                        {server.tasks.map((el) => {
+                            return <TaskCard task={el} key={el.id} />;
                         })}
-
                     </div>
                 </div>
             </section>
