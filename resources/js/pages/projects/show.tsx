@@ -6,12 +6,12 @@ import { Separator } from "@radix-ui/react-separator";
 import { Users } from "lucide-react";
 import { ComponentProps } from "react";
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 
 type ShowProps = {
@@ -29,7 +29,7 @@ type ShowProps = {
 export default function Show({ server }: ShowProps) {
     console.log(server);
     return (
-        <div className="flex size-full flex-col justify-between gap-8 p-10">
+        <div className="flex size-full flex-col justify-around gap-6 lg:p-6">
             <section className="flex items-center justify-between">
                 <div className="space-y-6">
                     <div className="space-y-2">
@@ -70,7 +70,7 @@ export default function Show({ server }: ShowProps) {
                 </div>
             </section>
 
-            <section className="flex h-96 justify-between gap-12 overflow-hidden">
+            <section className="flex h-60 justify-between gap-12 overflow-hidden">
                 <div className="flex size-full flex-col gap-6">
                     <div className="flex items-center gap-2">
                         <span>Tasks</span>
@@ -79,7 +79,7 @@ export default function Show({ server }: ShowProps) {
                     <Separator className="border-black border-b-3 md:w-2/5" />
                     <div className="flex h-full flex-wrap items-center justify-center gap-4 overflow-y-auto pr-6">
                         {server.tasks.map((el) => {
-                            return <TaskCard task={el} key={el.id} className="transition-all ease-in  hover:scale-95 hover:shadow-2xl"/>;
+                            return <TaskCard task={el} key={el.id} className="transition-all ease-in  hover:scale-95 hover:shadow-2xl" />;
                         })}
                     </div>
                 </div>

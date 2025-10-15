@@ -8,11 +8,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { usePage } from "@inertiajs/react"
 import { SharedData } from "@/types"
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
 } from "@/components/ui/popover"
-import { CheckSquare, PlusSquare } from "lucide-react"
+import { PlusSquare } from "lucide-react"
 import { PopupIcon } from "@/components/ui/popup-icon"
 
 export default function Layout({ children }: ComponentProps<"div">) {
@@ -55,7 +55,7 @@ export default function Layout({ children }: ComponentProps<"div">) {
                         <Button className="text-lg z-30 flex p-6 bg-blue-500 w-fit hover:bg-blue-600 text-white rounded-full self-start  items-center justify-start">
                             <PlusSquare />
                             New Task
-                            </Button>
+                        </Button>
                     </PopoverContent>
                 </Popover>
             </div>

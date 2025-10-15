@@ -16,7 +16,7 @@ import {
 import { SharedData } from "@/types"
 import { Link, usePage } from "@inertiajs/react"
 import { LogoIcon } from "./ui/logo";
-import {  ChevronRight, HomeIcon, PlusSquareIcon, SquareCheck, Users } from "lucide-react";
+import { ChevronRight, HomeIcon, PlusSquareIcon, SquareCheck, Users } from "lucide-react";
 import { Collapsible } from "./ui/collapsible";
 import { CollapsibleContent, CollapsibleTrigger } from "@radix-ui/react-collapsible";
 import { cn } from "@/lib/utils";
@@ -38,7 +38,7 @@ const navigation = [
 
 export function AppSidebar() {
     const { auth } = usePage<SharedData>().props
-    const {url} = usePage();
+    const { url } = usePage();
 
     const isOpen = (team: {
         id: number,
@@ -50,7 +50,7 @@ export function AppSidebar() {
         }[]
     }
     ) => {
-        return team.projects.some(el => url === `/project/${el.id}`);
+        return team.projects.some(el => url === `/project/${team.id}/${el.id}`);
     }
 
     return (
