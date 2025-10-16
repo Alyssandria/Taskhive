@@ -55,21 +55,21 @@ class User extends Authenticatable
      * @return BelongsToMany<Role,User,Pivot>
      */
     public function roles(): BelongsToMany {
-        return $this->belongsToMany(Role::class, 'role_users');
+        return $this->belongsToMany(Role::class, 'role_users')->withTimestamps();
     }
     /**
      * Gets the teams that the user belongs to
      * @return BelongsToMany<Team,User,Pivot>
      */
     public function teams(): BelongsToMany {
-        return $this->belongsToMany(Team::class, 'team_users');
+        return $this->belongsToMany(Team::class, 'team_users')->withTimestamps();
     }
     /**
      * Gets the tasks of the corresponding user
      * @return BelongsToMany<Task,User,Pivot>
      */
     public function tasks(): BelongsToMany {
-        return $this->belongsToMany(Task::class, 'task_users');
+        return $this->belongsToMany(Task::class, 'task_users')->withTimestamps();
     }
     /**
      * Gets the comments made by the corresponding user

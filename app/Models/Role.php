@@ -23,13 +23,13 @@ class Role extends Model
      * @return BelongsToMany<User,Role,Pivot>
      */
     public function users(): BelongsToMany {
-        return $this->belongsToMany(User::class, 'role_users');
+        return $this->belongsToMany(User::class, 'role_users')->withTimestamps();
     }
     /**
      * Gets the permissions that this role have
      * @return BelongsToMany<Permission,Role,Pivot>
      */
     public function permissions(): BelongsToMany {
-        return $this->belongsToMany(Permission::class, 'permission_roles');
+        return $this->belongsToMany(Permission::class, 'permission_roles')->withTimestamps();
     }
 }

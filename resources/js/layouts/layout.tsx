@@ -46,7 +46,7 @@ export default function Layout({ children }: ComponentProps<"div">) {
                         </Avatar>
                     </div>
                 </header>
-                <main className="size-full p-4">{children}</main>
+                <main className="size-full p-4 bg-gray-100 rounded-[35px]">{children}</main>
                 <Popover>
                     <PopoverTrigger className="absolute cursor-pointer border bg-white shadow-2xl size-10 rounded-full right-20 bottom-10 z-30">
                         <PopupIcon />

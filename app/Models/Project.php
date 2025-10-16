@@ -25,7 +25,7 @@ class Project extends Model
      * @return BelongsToMany<Team,Project,Pivot>
      */
     public function teams(): BelongsToMany {
-        return $this->belongsToMany(Team::class, 'project_teams');
+        return $this->belongsToMany(Team::class, 'project_teams')->withTimestamps();
     }
 
     public function tasks(): HasMany {

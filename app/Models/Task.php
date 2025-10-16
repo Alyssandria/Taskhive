@@ -36,7 +36,7 @@ class Task extends Model
      * @return BelongsTo<User,Task>
      */
     public function users(): BelongsToMany {
-        return $this->belongsToMany(User::class, 'task_users');
+        return $this->belongsToMany(User::class, 'task_users')->withTimestamps();
     }
 
     public function project(): BelongsTo {

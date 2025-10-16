@@ -23,13 +23,13 @@ class Team extends Model
      * @return BelongsToMany<User,Team,Pivot>
      */
     public function users(): BelongsToMany {
-        return $this->belongsToMany(User::class, 'team_users');
+        return $this->belongsToMany(User::class, 'team_users')->withTimestamps();
     }
     /**
      * Get the projects that this team have
      * @return BelongsToMany<Project,Team,Pivot>
      */
     public function projects(): BelongsToMany {
-        return $this->belongsToMany(Project::class, 'project_teams');
+        return $this->belongsToMany(Project::class, 'project_teams')->withTimestamps();
     }
 }
