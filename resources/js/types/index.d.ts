@@ -1,5 +1,6 @@
 export interface Auth {
     user: User;
+    roles: Role[];
     teams: {
         id: number,
         name: string,
@@ -9,6 +10,14 @@ export interface Auth {
             id: number
         }[],
     }[]
+}
+
+export type RoleSlugs = 'admin' | 'manager' | 'member';
+
+export interface Role {
+    id: number;
+    name: string;
+    slug: string;
 }
 
 export interface Project {

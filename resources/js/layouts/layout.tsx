@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/popover"
 import { PlusSquare } from "lucide-react"
 import { PopupIcon } from "@/components/ui/popup-icon"
+import { formatCase, getHighestRole } from "@/lib/utils"
 
 export default function Layout({ children }: ComponentProps<"div">) {
     const { auth } = usePage<SharedData>().props;
@@ -38,7 +39,7 @@ export default function Layout({ children }: ComponentProps<"div">) {
                     <div className="flex items-center gap-4">
                         <div>
                             <span className="block font-bold">{`${auth.user.first_name} ${auth.user.last_name}`}</span>
-                            <span className="block text-right text-muted-foreground">{`Manager`}</span>
+                            <span className="block text-right text-muted-foreground">{formatCase(getHighestRole(auth.roles) ?? "")}</span>
                         </div>
                         <Avatar>
                             <AvatarImage src="https://github.com/shadcn.png" />

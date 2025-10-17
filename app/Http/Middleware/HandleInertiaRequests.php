@@ -48,7 +48,8 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 /* 'user' => $request->user(), */
                 'user' => User::find(1),
-                'teams' => fn() => [...$teams->getWith(User::find(1), 'projects', 'id,name')]
+                'teams' => fn() => [...$teams->getWith(User::find(1), 'projects', 'id,name')],
+                'roles' => fn() => User::find(1) ? User::find(1)->roles()->get()->makeHidden('pivot') : [],
             ],
         ];
     }
