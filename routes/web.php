@@ -14,3 +14,4 @@ Route::controller(ProjectController::class)
         Route::get('/project/{teamId}/{projectId}', 'show')
             ->name('project.show');
     });
+
