@@ -1,21 +1,23 @@
-import { formatCase, getHighestRole } from '@/lib/utils';
-import { SharedData } from '@/types';
+import { Role, SharedData } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
 import { AdminDashboard } from './projects/dashboard/admin';
 import { ManagerDashboard } from './projects/dashboard/manager';
-import { ReactNode } from 'react';
+import { ComponentPropsWithoutRef } from 'react';
 
-export default function Welcome({ server }) {
-    const {auth} = usePage<SharedData>().props;
+type WelcomeProps = {
+    server: {
+        role: Role
+    };
+} & ComponentPropsWithoutRef<'div'>;
 
-    const dashboards : {
-        [key: string]: ReactNode
-    }= {
-        admin: <AdminDashboard />,
-        manager: <ManagerDashboard />
-    }
+export default function Welcome({ server }: WelcomeProps) {
+    const dashboard
+        = {
+            admin: <AdminDashboard />,
+            manager: <ManagerDashboard />
+        }[server.role.slug]
 
-    const dashboard = dashboards[getHighestRole(auth.roles) ?? "default"];
+    console.log(server);
     return (
         <>
             <Head title="Dashboard">

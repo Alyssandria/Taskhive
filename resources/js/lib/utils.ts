@@ -6,8 +6,6 @@ export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))
 }
 
-export const ROLE_HEIRARCHY : RoleSlugs[] = ['admin', 'manager', 'member'];
-
 export function formatDate(date: string) {
     const _date = new Date(date.replace(' ', 'T'));
     const now = new Date();
@@ -36,19 +34,16 @@ export function formatDate(date: string) {
     return `${monthName} ${day} ${_date.getFullYear()}`;
 }
 
-export const getHighestRole = (roles: Role[]) : RoleSlugs | null => {
-    for (const roleName of ROLE_HEIRARCHY) {
-        if(roles.find(role => role.slug === roleName)) {
-            return roleName;
-        }
-    }
-    return null;
+export const getHighestRole = (roles: Role[]) => {
+    return roles.sort((a, b) => {
+        return a.level + b.level;
+    })[0]
 }
 
 export const formatCase = (str: string) => {
     const _s = str.split(' ');
 
-    if(!_s.length){
+    if (!_s.length) {
         return `${str.charAt(0).toUpperCase()}${str.slice(1).toLowerCase()}`
     }
 

@@ -16,6 +16,7 @@ class Task extends Model
         'description',
         'due',
         'start',
+        'completed_at',
         'project_id',
         'status_id',
     ];
@@ -28,25 +29,29 @@ class Task extends Model
      * Gets the status of task
      * @return BelongsTo<Status,Task>
      */
-    public function status(): BelongsTo {
+    public function status(): BelongsTo
+    {
         return $this->belongsTo(Status::class);
     }
     /**
      * Gets the users assigned to this task
      * @return BelongsTo<User,Task>
      */
-    public function users(): BelongsToMany {
+    public function users(): BelongsToMany
+    {
         return $this->belongsToMany(User::class, 'task_users')->withTimestamps();
     }
 
-    public function project(): BelongsTo {
+    public function project(): BelongsTo
+    {
         return $this->belongsTo(Project::class);
     }
     /**
      * Gets the comments made on this task
      * @return HasMany<Comment,Task>
      */
-    public function comments(): HasMany {
+    public function comments(): HasMany
+    {
         return $this->hasMany(Comment::class);
     }
 }

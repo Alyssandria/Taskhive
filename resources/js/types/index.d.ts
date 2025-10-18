@@ -17,6 +17,7 @@ export type RoleSlugs = 'admin' | 'manager' | 'member';
 export interface Role {
     id: number;
     name: string;
+    level: number;
     slug: string;
 }
 

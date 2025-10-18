@@ -39,7 +39,7 @@ export default function Layout({ children }: ComponentProps<"div">) {
                     <div className="flex items-center gap-4">
                         <div>
                             <span className="block font-bold">{`${auth.user.first_name} ${auth.user.last_name}`}</span>
-                            <span className="block text-right text-muted-foreground">{formatCase(getHighestRole(auth.roles) ?? "")}</span>
+                            <span className="block text-right text-muted-foreground">{formatCase(getHighestRole(auth.roles).slug ?? "")}</span>
                         </div>
                         <Avatar>
                             <AvatarImage src="https://github.com/shadcn.png" />

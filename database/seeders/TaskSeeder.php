@@ -22,17 +22,20 @@ class TaskSeeder extends Seeder
                 $user = User::inRandomOrder()->first();
                 $project = $user->teams()->inRandomOrder()->first()->projects()->inRandomOrder()->first();
 
+                $status = Status::inRandomOrder()->first();
+
                 $task = Task::create([
                     'title' => fake()->word(),
                     'description' => fake()->sentence(),
                     'due' => fake()->dateTimeBetween('now', '+1 month'),
                     'start' => fake()->dateTimeBetween('-1 month', 'now'),
                     'project_id' => $project->id,
-                    'status_id' => Status::inRandomOrder()->first()->id
+                    'completed_at' => $status->slug === 'completed' ? fake()->dateTimeBetween($project->created_at, 'now') : null,
+                    'status_id' => $status->id,
                 ]);
 
-                $task->users()->sync(User::whereHas('teams', function (Builder $query) use ($project){
-                    $query->whereHas('projects', function (Builder $query) use ($project){
+                $task->users()->sync(User::whereHas('teams', function (Builder $query) use ($project) {
+                    $query->whereHas('projects', function (Builder $query) use ($project) {
                         $query->where('projects.id', $project->id);
                     });
                 })->take(fake()->numberBetween(1, User::count()))->pluck('id'));
