@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\Task;
 use App\Models\Team;
 use App\Models\User;
 use App\Services\ProjectService;
@@ -14,7 +15,7 @@ class DashboardController extends Controller
 {
     public function index(TeamService $teams, UserService $users, ProjectService $projects)
     {
-        $user = User::find(1);
+        $user = User::find(2);
         $role = $users->getHighestRole($user);
 
         $dashboardData = [];
@@ -22,15 +23,12 @@ class DashboardController extends Controller
         switch ($role->slug) {
             case 'admin':
                 $dashboardData = [
-                    'totalUsers' => User::count(),
-                    'totalTeams' => Team::count(),
-                    'totalProjects' => Project::count(),
-                ];
-                break;
-
-            case 'member':
-                $dashboardData = [
-                    'assignedProjects' => $projects->countProjectsByMember($user->id),
+                    'cards' => [
+                        'totalUsers' => fn() => User::count(),
+                        'totalTeams' => fn() => Team::count(),
+                        'totalProjects' => fn() => Project::count(),
+                        'totalTasks' => fn() => Task::count()
+                    ]
                 ];
                 break;
         };
