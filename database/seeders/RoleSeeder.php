@@ -14,11 +14,13 @@ class RoleSeeder extends Seeder
     {
         Role::query()->create([
             'name' => 'Admin Role',
+            'level' => 3,
             'slug' => 'admin',
         ]);
 
         Role::query()->create([
             'name' => 'Manager Role',
+            'level' => 2,
             'slug' => 'manager',
         ]);
 
