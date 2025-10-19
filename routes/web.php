@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ApiController;
 
 Route::controller(DashboardController::class)
     ->group(function () {
@@ -15,3 +16,10 @@ Route::controller(ProjectController::class)
             ->name('project.show');
     });
 
+Route::controller(ApiController::class)
+    ->prefix('api')
+    /* ->middleware('auth') */
+    ->group(function () {
+        Route::get('/stats/tasks', 'tasksCompletedStats')
+            ->name('api.stats.tasksCompleted');
+    });

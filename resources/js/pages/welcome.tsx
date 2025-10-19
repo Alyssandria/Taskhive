@@ -1,5 +1,5 @@
-import { Role, SharedData } from '@/types';
-import { Head, usePage } from '@inertiajs/react';
+import { type Role } from '@/types';
+import { Head } from '@inertiajs/react';
 import { AdminDashboard } from './projects/dashboard/admin';
 import { ManagerDashboard } from './projects/dashboard/manager';
 import { ComponentPropsWithoutRef } from 'react';

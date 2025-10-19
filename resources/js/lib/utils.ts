@@ -1,4 +1,5 @@
 import { Role, RoleSlugs } from "@/types";
+import axios, { AxiosRequestConfig } from "axios";
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -48,4 +49,8 @@ export const formatCase = (str: string) => {
     }
 
     return _s.map(s => `${s.charAt(0).toUpperCase()}${s.slice(1).toLowerCase()}`).join(' ');
+}
+
+export const fetchWithToken = (options: AxiosRequestConfig) => {
+    return axios(options);
 }
