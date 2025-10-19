@@ -20,7 +20,7 @@ class DashboardController extends Controller
         ProjectService $projects,
         TaskService $tasks
     ) {
-        $user = User::find(2);
+        $user = User::find(1);
         $role = $users->getHighestRole($user);
 
         $dashboardData = [];

@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/chart"
 import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { LineChartWrapper } from "@/components/ui/line-chart";
 
 const chartConfig = {
     x: {
@@ -46,13 +47,11 @@ const CompletedChart = () => {
                     right: 12,
                 }}
             >
-                <CartesianGrid vertical={false} />
                 <XAxis
                     dataKey="x"
                     tickLine={false}
                     axisLine={false}
                     tickMargin={8}
-                    tickFormatter={(value) => value.slice(0, 3)}
                 />
                 <ChartTooltip
                     cursor={false}
@@ -63,7 +62,7 @@ const CompletedChart = () => {
                     dataKey="completed"
                     type="monotone"
                     strokeWidth={2}
-                    stroke="var(--color-completed)"
+                    stroke={`var(--color-completed)`}
                     dot={{
                         fill: "var(--color-desktop)",
                     }}
@@ -77,6 +76,16 @@ const CompletedChart = () => {
 }
 
 export const AdminDashboard = () => {
+    const [chartData, setChartData] = useState<{ x: string, completed: number }[]>([]);
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetchWithToken({
+                url: '/api/stats/tasks',
+            });
+            setChartData(response.data);
+        }
+        fetchData();
+    }, []);
     return (
         <div>
             Hello From Admin Dashboard
@@ -93,7 +102,10 @@ export const AdminDashboard = () => {
                     </CardAction>
                 </CardHeader>
                 <CardContent className="relative">
-                    <CompletedChart />
+                    <LineChartWrapper
+                        config={chartConfig}
+                        chartData={chartData}
+                    />
                 </CardContent>
                 <CardFooter className="flex-col items-start gap-2 text-sm">
                     <div className="flex gap-2 leading-none font-medium">

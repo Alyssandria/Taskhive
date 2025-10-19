@@ -28,7 +28,7 @@ class TaskService
 
         switch ($timeFrame) {
             case 'weekly':
-                $end = Carbon::today();
+                $end = Carbon::now();
                 $start = $end->copy()->subDay(6);
                 $current = $start->copy();
 
@@ -41,9 +41,10 @@ class TaskService
                     ->get()
                     ->keyBy('date');
 
+
                 while ($current->lte($end)) {
                     $data->push([
-                        'x' => $current->format('D'),
+                        'x' => $current->toDateString() == $end->toDateString() ? 'Today' : $current->format('D'),
                         'completed' => $tasks[$current->toDateString()]->count ?? 0,
                     ]);
 
