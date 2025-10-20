@@ -31,7 +31,6 @@ export const CompletionOverTime = () => {
     const [selectedTF, setSelectedTF] = useState<TOptions>("1W");
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-
     const fetchData = async (option: TOptions) => {
         setIsLoading(true);
         const response = await axios({
