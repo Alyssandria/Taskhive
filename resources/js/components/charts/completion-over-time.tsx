@@ -6,6 +6,7 @@ import { LineChartWrapper } from "../ui/line-chart";
 import { type ChartConfig } from "../ui/chart";
 import { cn } from "@/lib/utils";
 import { LoadingContainer } from "../loading-container";
+import { router } from "@inertiajs/react";
 
 
 const chartConfig = {
@@ -30,42 +31,53 @@ export const CompletionOverTime = () => {
     const [selectedTF, setSelectedTF] = useState<TOptions>("1W");
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const options = [
-        {
-            label: "7D",
-            value: "1W",
-            callback: () => handleOptionClick("1W")
-        },
-        {
-            label: "1M",
-            value: "1M",
-            callback: () => handleOptionClick("1M")
-        },
-        {
-            label: "6M",
-            value: "6M",
-            callback: () => handleOptionClick("6M")
-        },
-        {
-            label: "1Y",
-            value: "1Y",
-            callback: () => handleOptionClick("1Y")
-        },
-    ];
+
+    const fetchData = async (option: TOptions) => {
+        setIsLoading(true);
+        const response = await axios({
+            url: `/api/stats/tasks/completions?range=${option}`,
+        });
+
+        setChartData(response.data);
+        setIsLoading(false);
+    }
+
+    const marginLookup: Record<TOptions, number> = {
+        "1W": 20,
+        "1M": 50,
+        "6M": 65,
+        "1Y": 65,
+    }
+
+    const options: {
+        label: string;
+        value: TOptions;
+    }[] = [
+            {
+                label: "7D",
+                value: "1W",
+            },
+            {
+                label: "1M",
+                value: "1M",
+            },
+            {
+                label: "6M",
+                value: "6M",
+            },
+            {
+                label: "1Y",
+                value: "1Y",
+            },
+        ];
 
     const handleOptionClick = (option: TOptions) => {
         setSelectedTF(option);
+        fetchData(option);
     }
 
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await axios({
-                url: '/api/stats/tasks/completions',
-            });
-
-            setChartData(response.data);
-        }
-        fetchData();
+        fetchData(selectedTF);
     }, []);
 
     return (
@@ -82,7 +94,7 @@ export const CompletionOverTime = () => {
                                 <Button
                                     key={option.value}
                                     disabled={isSelected}
-                                    onClick={option.callback}
+                                    onClick={() => handleOptionClick(option.value)}
                                     className={cn(
                                         "p-2 bg-transparent text-black hover:text-white",
                                         isSelected ?
@@ -98,6 +110,11 @@ export const CompletionOverTime = () => {
             <CardContent className="relative ">
                 <LoadingContainer isLoading={isLoading} className="min-h-[200px]">
                     <LineChartWrapper
+                        margin={{
+                            left: marginLookup[selectedTF],
+                            right: marginLookup[selectedTF]
+                        }
+                        }
                         config={chartConfig}
                         chartData={chartData}
                     />

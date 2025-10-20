@@ -1,7 +1,7 @@
 import { ComponentProps } from "react"
 import { ChartTooltip, ChartTooltipContent, type ChartConfig } from "./chart"
 import { ChartContainerWrapper } from "./chart-container"
-import { Line, LineChart, XAxis } from "recharts"
+import { LabelList, Line, LineChart, XAxis } from "recharts"
 
 type LineChartProps<T> = {
     config: ChartConfig;
@@ -24,6 +24,7 @@ export const LineChartWrapper = <T,>({ config, margin, chartData }: LineChartPro
             >
                 <XAxis
                     dataKey="x"
+                    className="hidden lg:block"
                     tickLine={false}
                     axisLine={false}
                     interval={0}
@@ -39,18 +40,20 @@ export const LineChartWrapper = <T,>({ config, margin, chartData }: LineChartPro
                         .filter(key => key !== 'x')
                         .map(key => {
                             return (
-                                <Line
-                                    dataKey={key}
-                                    type="monotone"
-                                    strokeWidth={2}
-                                    stroke={`var(--color-${key})`}
-                                    dot={{
-                                        fill: `var(--color-${key})`,
-                                    }}
-                                    activeDot={{
-                                        r: 6,
-                                    }}
-                                />
+                                <>
+                                    <Line
+                                        dataKey={key}
+                                        type="monotone"
+                                        strokeWidth={2}
+                                        stroke={`var(--color-${key})`}
+                                        dot={{
+                                            fill: `var(--color-${key})`,
+                                        }}
+                                        activeDot={{
+                                            r: 6,
+                                        }}
+                                    />
+                                </>
                             )
                         })
                 }
