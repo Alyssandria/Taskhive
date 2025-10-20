@@ -3,20 +3,33 @@
 namespace App\Http\Controllers;
 
 use App\Services\StatService;
-use App\Services\TaskService;
 use Carbon\Carbon;
-use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
-    public function tasksCompletedStats(StatService $stats, Request $request, TaskService $tasks)
-    {
+    public function taskPerStatus(
+        StatService $stats
+    ) {
+
+        $stat = $stats->getTaskPerStatus();
+
+        return response()->json($stat->map(function ($item) {
+            return [
+                'count' => $item->count,
+                'status' => $item->status->name
+            ];
+        }));
+    }
+    public function tasksCompletedStats(
+        StatService $stats,
+        Request $request,
+    ) {
         $data = collect();
 
-        $end = Carbon::now(); // DEFAULT
-        $start = $end->copy(); // DEFAULT
-        $segments = 7; // DEFAULT
+        $end = Carbon::now();
+        $start = $end->copy();
+        $segments = 7;
         $labelFormatter = null;
 
         switch ($request->range) {

@@ -22,4 +22,6 @@ Route::controller(ApiController::class)
     ->group(function () {
         Route::get('/stats/tasks/completions', 'tasksCompletedStats')
             ->name('api.stats.tasksCompleted');
+        Route::get('/stats/tasks/status', 'taskPerStatus')
+            ->name('api.stats.taskPerStatus');
     });

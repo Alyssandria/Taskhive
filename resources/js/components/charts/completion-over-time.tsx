@@ -32,13 +32,14 @@ export const CompletionOverTime = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const fetchData = async (option: TOptions) => {
-        setIsLoading(true);
-        const response = await axios({
-            url: `/api/stats/tasks/completions?range=${option}`,
-        });
-
-        setChartData(response.data);
-        setIsLoading(false);
+        router.get(`/api/stats/tasks/status`);
+        // setIsLoading(true);
+        // const response = await axios({
+        //     url: `/api/stats/tasks/completions?range=${option}`,
+        // });
+        //
+        // setChartData(response.data);
+        // setIsLoading(false);
     }
 
     const marginLookup: Record<TOptions, number> = {
