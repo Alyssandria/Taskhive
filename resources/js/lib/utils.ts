@@ -50,7 +50,3 @@ export const formatCase = (str: string) => {
 
     return _s.map(s => `${s.charAt(0).toUpperCase()}${s.slice(1).toLowerCase()}`).join(' ');
 }
-
-export const fetchWithToken = (options: AxiosRequestConfig) => {
-    return axios(options);
-}

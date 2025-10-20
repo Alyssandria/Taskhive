@@ -20,6 +20,6 @@ Route::controller(ApiController::class)
     ->prefix('api')
     /* ->middleware('auth') */
     ->group(function () {
-        Route::get('/stats/tasks', 'tasksCompletedStats')
+        Route::get('/stats/tasks/completions', 'tasksCompletedStats')
             ->name('api.stats.tasksCompleted');
     });

@@ -20,6 +20,7 @@ class DashboardController extends Controller
         ProjectService $projects,
         TaskService $tasks
     ) {
+
         $user = User::find(1);
         $role = $users->getHighestRole($user);
 
@@ -27,16 +28,17 @@ class DashboardController extends Controller
 
         switch ($role->slug) {
             case 'admin':
-                $dashboardData = [
-                    'cards' => [
-                        'totalUsers' => fn() => User::count(),
-                        'totalTeams' => fn() => Team::count(),
-                        'totalProjects' => fn() => Project::count(),
-                        'totalTasks' => fn() => Task::count()
-                    ],
-                ];
+                /* $dashboardData = [ */
+                /*     'cards' => [ */
+                /*         'totalUsers' => fn() => User::count(), */
+                /*         'totalTeams' => fn() => Team::count(), */
+                /*         'totalProjects' => fn() => Project::count(), */
+                /*         'totalTasks' => fn() => Task::count() */
+                /*     ], */
+                /* ]; */
                 break;
         };
+
 
         return Inertia::render('welcome', [
             'server' => [

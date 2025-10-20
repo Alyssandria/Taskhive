@@ -1,14 +1,15 @@
 import { ComponentProps } from "react"
-import { ChartConfig } from "./chart"
+import { ChartConfig, ChartContainer } from "./chart"
 import { cn } from "@/lib/utils"
 
 type ChartContainerProps = {
     config: ChartConfig,
-} & ComponentProps<"div">
+} & ComponentProps<typeof ChartContainer>
 
-export const ChartContainer = ({ config, children, className, ...props }: ChartContainerProps) => {
+export const ChartContainerWrapper = ({ config, children, className, ...props }: ChartContainerProps) => {
     return (
         <ChartContainer config={config} className={cn("min-h-[200px] w-full", className)} {...props}>
+            {children}
         </ChartContainer>
     )
 }
