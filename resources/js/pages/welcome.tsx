@@ -16,8 +16,7 @@ export default function Welcome({ server }: WelcomeProps) {
             admin: <AdminDashboard />,
             manager: <ManagerDashboard />
         }[server.role.slug]
-
-    console.log(dashboard);
+    console.log(server);
     return (
         <>
             <Head title="Dashboard">

@@ -7,6 +7,7 @@ use App\Models\Task;
 use App\Models\Team;
 use App\Models\User;
 use App\Services\ProjectService;
+use App\Services\StatService;
 use App\Services\TaskService;
 use App\Services\TeamService;
 use App\Services\UserService;
@@ -16,6 +17,7 @@ class DashboardController extends Controller
 {
     public function index(
         UserService $users,
+        StatService $stats,
     ) {
 
         $user = User::find(1);
@@ -32,6 +34,10 @@ class DashboardController extends Controller
                         'totalProjects' => fn() => Project::count(),
                         'totalTasks' => fn() => Task::count()
                     ],
+                    'tables' => [
+                        'projects' => fn() => $stats->getProjectsStat(),
+                        'teams' => fn() => $stats->getTeamStats()->makeHidden('description')
+                    ]
                 ];
                 break;
         };
