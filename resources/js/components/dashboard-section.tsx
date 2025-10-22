@@ -7,7 +7,7 @@ type DashboardSectionProps = {
 
 export const DashboardSection = ({ title, children, className, ...props }: DashboardSectionProps) => {
     return (
-        <section className={cn("space-y-4", className)} {...props}>
+        <section className={cn("flex flex-col gap-4", className)} {...props}>
             <h2 className="text-2xl font-bold">{title}</h2>
             {children}
         </section>

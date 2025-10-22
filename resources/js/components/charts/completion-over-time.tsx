@@ -80,7 +80,7 @@ export const CompletionOverTime = () => {
     }, []);
 
     return (
-        <Card>
+        <Card className="size-full">
             <CardHeader>
                 <CardTitle>Line Chart</CardTitle>
                 <CardDescription>January - June 2024</CardDescription>
@@ -106,9 +106,10 @@ export const CompletionOverTime = () => {
                     </div>
                 </CardAction>
             </CardHeader>
-            <CardContent className="relative ">
+            <CardContent className="relative">
                 <LoadingContainer isLoading={isLoading} className="min-h-[200px]">
                     <LineChartWrapper
+                        className="h-[200px]"
                         margin={{
                             left: marginLookup[selectedTF],
                             right: marginLookup[selectedTF]

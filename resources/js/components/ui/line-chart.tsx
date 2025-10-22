@@ -1,16 +1,17 @@
 import { ComponentProps } from "react"
 import { ChartTooltip, ChartTooltipContent, type ChartConfig } from "./chart"
 import { ChartContainerWrapper } from "./chart-container"
-import { LabelList, Line, LineChart, XAxis } from "recharts"
+import { Line, LineChart, XAxis } from "recharts"
+import { cn } from "@/lib/utils"
 
 type LineChartProps<T> = {
     config: ChartConfig;
     chartData: T[];
 } & ComponentProps<typeof LineChart>
 
-export const LineChartWrapper = <T,>({ config, margin, chartData }: LineChartProps<T>) => {
+export const LineChartWrapper = <T,>({ config, margin, chartData, className }: LineChartProps<T>) => {
     return (
-        <ChartContainerWrapper config={config}>
+        <ChartContainerWrapper config={config} className={cn("w-full", className)}>
             <LineChart
                 accessibilityLayer
                 data={chartData}

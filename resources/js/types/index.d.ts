@@ -21,6 +21,27 @@ export interface Role {
     slug: string;
 }
 
+export type AdminDashboardData = {
+    cards: {
+        totalProjects: number,
+        totalTasks: number,
+        totalTeams: number,
+        totalUsers: number,
+    },
+    tables: {
+        projects: {
+            id: number,
+            name: string,
+            tasks: {
+                total: number,
+                completed: number
+            }
+        },
+        teams: number,
+        users: number
+    }
+}
+
 export interface Project {
     id: number;
     name: string;

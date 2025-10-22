@@ -8,7 +8,7 @@ type ChartContainerProps = {
 
 export const ChartContainerWrapper = ({ config, children, className, ...props }: ChartContainerProps) => {
     return (
-        <ChartContainer config={config} className={cn("min-h-[200px] w-full", className)} {...props}>
+        <ChartContainer config={config} className={cn("min-h-[200px]", className)} {...props}>
             {children}
         </ChartContainer>
     )

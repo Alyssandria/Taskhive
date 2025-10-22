@@ -66,18 +66,18 @@ export function TaskPerStatus() {
 
     }, [])
     return (
-        <Card className="flex flex-col">
+        <Card className="size-full flex flex-col">
             <CardHeader className="items-center pb-0">
                 <CardTitle>Pie Chart - Donut Active</CardTitle>
                 <CardDescription>January - June 2024</CardDescription>
             </CardHeader>
-            <CardContent className="flex-1 pb-0">
-                <LoadingContainer isLoading={isLoading} className="min-h-[200px]">
+            <CardContent className="size-full flex items-center justify-center flex-1 pb-0">
+                <LoadingContainer isLoading={isLoading} className="size-full min-h-[200px]">
                     <ChartContainerWrapper
                         config={chartConfig}
-                        className="mx-auto aspect-square max-h-[250px]"
+                        className="size-full mx-auto aspect-square max-h-[250px]"
                     >
-                        <PieChartWrapper chartData={chartData} />
+                        <PieChartWrapper chartData={chartData} className="size-full" />
                     </ChartContainerWrapper>
                 </LoadingContainer>
             </CardContent>

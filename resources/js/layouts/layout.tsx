@@ -15,14 +15,15 @@ import {
 import { PlusSquare } from "lucide-react"
 import { PopupIcon } from "@/components/ui/popup-icon"
 import { formatCase, getHighestRole } from "@/lib/utils"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 export default function Layout({ children }: ComponentProps<"div">) {
     const { auth } = usePage<SharedData>().props;
     return (
         <SidebarProvider className="relative">
             <AppSidebar />
-            <div className="relative flex w-full flex-col lg:h-screen lg:overflow-hidden">
-                <header className="flex items-center justify-between p-4 px-10">
+            <div className="relative w-full space-y-2 lg:h-screen lg:overflow-hidden">
+                <header className="flex items-center justify-between h-20">
                     <div className="flex w-1/2 items-center gap-6">
                         <SidebarTrigger />
                         <form className="w-full">
@@ -47,7 +48,9 @@ export default function Layout({ children }: ComponentProps<"div">) {
                         </Avatar>
                     </div>
                 </header>
-                <main className="size-full p-4 bg-gray-100 rounded-[35px]">{children}</main>
+                <ScrollArea className="size-full p-4 bg-gray-100 rounded-l-[35px] lg:h-[calc(100vh - 80px)] lg:overflow-hidden lg:overflow-y-auto">
+                    {children}
+                </ScrollArea>
                 <Popover>
                     <PopoverTrigger className="absolute cursor-pointer border bg-white shadow-2xl size-10 rounded-full right-20 bottom-10 z-30">
                         <PopupIcon />
