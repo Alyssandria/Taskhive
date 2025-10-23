@@ -32,13 +32,20 @@ export type AdminDashboardData = {
         projects: {
             id: number,
             name: string,
+
             tasks: {
                 total: number,
                 completed: number
             }
-        },
-        teams: number,
-        users: number
+            users: number,
+            teams: number
+        }[],
+        teams: {
+            id: number,
+            name: string,
+            projects_count: number,
+            users_count: number
+        }[],
     }
 }
 

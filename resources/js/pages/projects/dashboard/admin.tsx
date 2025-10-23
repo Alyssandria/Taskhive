@@ -1,7 +1,9 @@
 import { CompletionOverTime } from "@/components/charts/completion-over-time"
 import { TaskPerStatus } from "@/components/charts/tasks-per-status"
 import { DashboardCard } from "@/components/dashboard-card"
+import { DashboardRow } from "@/components/dashboard-row"
 import { DashboardSection } from "@/components/dashboard-section"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import { AdminDashboardData } from "@/types"
 import { Briefcase, Flag, FolderPlus, Users } from "lucide-react"
 import { useMemo } from "react"
@@ -41,14 +43,14 @@ export const AdminDashboard = ({ data }: AdminDashboardProps) => {
                     iconBg: "bg-[#DCFAF8]",
                     label: "Total Tasks",
                 },
-            ]
+            ],
         }
     }, [data]);
 
     return (
-        <div className="grid lg:grid-cols-4 gap-8">
+        <div className="size-full grid lg:grid-cols-4 gap-8">
             <DashboardSection title="Overview" className="col-span-full">
-                <div className="flex justify-between col-span-full">
+                <div className="flex flex-wrap gap-8 justify-between col-span-full">
                     {formatData.cards.map((el) => {
                         return (
                             <DashboardCard className="flex gap-2 items-center">
@@ -73,8 +75,58 @@ export const AdminDashboard = ({ data }: AdminDashboardProps) => {
                 <TaskPerStatus />
             </DashboardSection>
 
-            <DashboardSection title="Tasks per status" className="row-start-3">
-                <TaskPerStatus />
+            <DashboardSection title="Projects" className="row-start-3 col-span-full xl:col-span-2">
+                <ScrollArea className=" max-h-[250px]">
+                    <div className="flex flex-col gap-6">
+                        {data.tables.projects.map((el, i) => {
+                            return (
+                                <DashboardRow key={el.id} className={i % 2 ? "bg-gray-200" : "bg-white"}>
+                                    <DashboardRow.item>
+                                        <DashboardRow.content>{el.name}</DashboardRow.content>
+                                        <DashboardRow.label>Project</DashboardRow.label>
+                                    </DashboardRow.item>
+                                    <DashboardRow.item>
+                                        <DashboardRow.content>{el.teams}</DashboardRow.content>
+                                        <DashboardRow.label>Teams</DashboardRow.label>
+                                    </DashboardRow.item>
+                                    <DashboardRow.item>
+                                        <DashboardRow.content>{el.users}</DashboardRow.content>
+                                        <DashboardRow.label>Users</DashboardRow.label>
+                                    </DashboardRow.item>
+                                    <DashboardRow.item>
+                                        <DashboardRow.content>{`${el.tasks.completed}/${el.tasks.total}`}</DashboardRow.content>
+                                        <DashboardRow.label>Tasks</DashboardRow.label>
+                                    </DashboardRow.item>
+                                </DashboardRow>
+                            )
+                        })}
+                    </div>
+                </ScrollArea>
+            </DashboardSection>
+
+            <DashboardSection title="Teams" className="xl:col-start-3 col-span-full xl:col-span-2">
+                <ScrollArea className=" max-h-[250px]">
+                    <div className="flex flex-col gap-6">
+                        {data.tables.teams.map((el, i) => {
+                            return (
+                                <DashboardRow key={el.id} className={i % 2 ? "bg-gray-200" : "bg-white"}>
+                                    <DashboardRow.item>
+                                        <DashboardRow.content>{el.name}</DashboardRow.content>
+                                        <DashboardRow.label>Team</DashboardRow.label>
+                                    </DashboardRow.item>
+                                    <DashboardRow.item>
+                                        <DashboardRow.content>{el.projects_count}</DashboardRow.content>
+                                        <DashboardRow.label>Projects</DashboardRow.label>
+                                    </DashboardRow.item>
+                                    <DashboardRow.item>
+                                        <DashboardRow.content>{el.users_count}</DashboardRow.content>
+                                        <DashboardRow.label>Users</DashboardRow.label>
+                                    </DashboardRow.item>
+                                </DashboardRow>
+                            )
+                        })}
+                    </div>
+                </ScrollArea>
             </DashboardSection>
         </div >
     )
