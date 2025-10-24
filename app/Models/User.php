@@ -54,28 +54,40 @@ class User extends Authenticatable
      * Gets the roles of the corresponding user
      * @return BelongsToMany<Role,User,Pivot>
      */
-    public function roles(): BelongsToMany {
+    public function roles(): BelongsToMany
+    {
         return $this->belongsToMany(Role::class, 'role_users')->withTimestamps();
     }
     /**
      * Gets the teams that the user belongs to
      * @return BelongsToMany<Team,User,Pivot>
      */
-    public function teams(): BelongsToMany {
+    public function teams(): BelongsToMany
+    {
         return $this->belongsToMany(Team::class, 'team_users')->withTimestamps();
     }
     /**
      * Gets the tasks of the corresponding user
      * @return BelongsToMany<Task,User,Pivot>
      */
-    public function tasks(): BelongsToMany {
+    public function tasks(): BelongsToMany
+    {
         return $this->belongsToMany(Task::class, 'task_users')->withTimestamps();
     }
     /**
      * Gets the comments made by the corresponding user
      * @return HasMany<Comment,User>
      */
-    public function comments(): HasMany {
+    public function comments(): HasMany
+    {
         return $this->hasMany(Comment::class);
+    }
+
+    public function projects()
+    {
+        return $this->teams()->with('projects')->get()
+            ->mapWithKeys(function ($team) {
+                return [$team->id => $team->projects];
+            });
     }
 }

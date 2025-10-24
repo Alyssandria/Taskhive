@@ -20,7 +20,7 @@ class DashboardController extends Controller
         StatService $stats,
     ) {
 
-        $user = User::find(1);
+        $user = User::find(2);
         $role = $users->getHighestRole($user);
 
         $dashboardData = [];
@@ -40,6 +40,15 @@ class DashboardController extends Controller
                     ]
                 ];
                 break;
+            case 'member':
+                $dashboardData = [
+                    'cards' => [
+                        'uncompletedTasks' => fn() => $user->tasks()->whereNull('completed_at')->count(),
+                        'projects' => fn() => $user->projects()->flatten()->unique('id')->count(),
+                        'teams' => fn() => $user->teams()->count(),
+                    ],
+                    'tables' => Inertia::scroll(fn() => $user->tasks()->with('users')->paginate(10))
+                ];
         };
 
 

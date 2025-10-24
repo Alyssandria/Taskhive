@@ -3,6 +3,7 @@ import { Head } from '@inertiajs/react';
 import { AdminDashboard } from './projects/dashboard/admin';
 import { ManagerDashboard } from './projects/dashboard/manager';
 import { ComponentPropsWithoutRef } from 'react';
+import { MemberDashboard } from './projects/dashboard/member';
 
 type WelcomeProps = {
     server: {
@@ -15,7 +16,8 @@ export default function Welcome({ server }: WelcomeProps) {
     const dashboard
         = {
             admin: <AdminDashboard data={server.dashboardData as AdminDashboardData} />,
-            manager: <ManagerDashboard />
+            manager: <ManagerDashboard />,
+            member: <MemberDashboard />
         }[server.role.slug]
 
     console.log(server);
