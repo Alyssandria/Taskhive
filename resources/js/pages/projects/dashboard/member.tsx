@@ -53,11 +53,16 @@ export const MemberDashboard = <T extends Task>({ data }: MemberDashboardProps<T
                     })}
                 </div>
             </div>
-            <ScrollArea className="h-60 overflow-y-auto">
-                <div className="w-52 md:w-96 lg:w-full">
-                    <TasksDataTable data={taskData} />
+            <div className="flex flex-col gap-10">
+                <div className="w-fit pr-[200px] border-b-2 border-b-black">
+                    <h3 className="text-xl font-bold py-4 ">Task</h3>
                 </div>
-            </ScrollArea>
+                <ScrollArea className="h-60 overflow-y-auto">
+                    <div className="w-52 md:w-96 lg:w-full">
+                        <TasksDataTable data={taskData} />
+                    </div>
+                </ScrollArea>
+            </div>
         </div>
     )
 }

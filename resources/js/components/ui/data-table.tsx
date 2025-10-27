@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
-import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"
-import { ComponentProps } from "react";
+import { ColumnDef, flexRender, getCoreRowModel, SortingState, useReactTable } from "@tanstack/react-table"
+import { ComponentProps, useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./table";
 
 type DataTableProps<TData, TValue> = {
@@ -16,11 +16,17 @@ export const DataTable = <TData, TValue>(
     }: DataTableProps<TData, TValue>
 
 ) => {
+    const [sorting, setSorting] = useState<SortingState>([]);
+
     const table = useReactTable({
         columns,
         getCoreRowModel: getCoreRowModel(),
         data,
-    })
+        manualSorting: true,
+        state: { sorting },
+        onSortingChange: setSorting
+    });
+
     return (
         <div className={cn("overflow-hidden border  rounded-md ", className)} {...props}>
             <Table>

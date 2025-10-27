@@ -5,8 +5,8 @@ import { Task, User } from "@/types"
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 import { ButtonGroup } from "../ui/button-group"
 import { Button } from "../ui/button"
-import { PenIcon, Trash2Icon } from "lucide-react"
-import { ScrollArea } from "../ui/scroll-area"
+import { ArrowDown, ArrowUp, PenIcon, Trash2Icon } from "lucide-react"
+import { Checkbox } from "../ui/checkbox"
 
 type TasksDataTableProps = {
     data: Task[]
@@ -16,15 +16,70 @@ export const TasksDataTable = ({ data }: TasksDataTableProps) => {
     const columns = useMemo(() => {
         const cols: ColumnDef<Task>[] = [
             {
-                header: 'Task',
+                id: "select",
+                header: ({ table }) => (
+                    <Checkbox
+                        checked={
+                            table.getIsAllPageRowsSelected() ||
+                            (table.getIsSomePageRowsSelected() && "indeterminate")
+                        }
+                        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+                        aria-label="select-all"
+                    />
+                ),
+                cell: ({ row }) => (
+                    <Checkbox
+                        checked={row.getIsSelected()}
+                        onCheckedChange={(value) => row.toggleSelected(!!value)}
+                        aria-label="select-all"
+                    />
+
+                ),
+                enableSorting: false,
+                enableHiding: false
+            },
+            {
+                header: ({ column }) => (
+                    <Button
+                        className="pl-0"
+                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                        variant={"ghost"}
+                    >
+                        Task
+                        {column.getIsSorted() === "asc" && <ArrowUp />}
+                        {column.getIsSorted() === "desc" && <ArrowDown />}
+                    </Button>
+                ),
+
+
                 accessorKey: 'title',
             },
             {
-                header: 'Status',
                 accessorKey: 'status.name',
+                header: ({ column }) => (
+                    <Button
+                        className="pl-0"
+                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                        variant={"ghost"}
+                    >
+                        Status
+                        {column.getIsSorted() === "asc" && <ArrowUp />}
+                        {column.getIsSorted() === "desc" && <ArrowDown />}
+                    </Button>
+                ),
             },
             {
-                header: 'Users',
+                header: ({ column }) => (
+                    <Button
+                        className="pl-0"
+                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                        variant={"ghost"}
+                    >
+                        Users
+                        {column.getIsSorted() === "asc" && <ArrowUp />}
+                        {column.getIsSorted() === "desc" && <ArrowDown />}
+                    </Button>
+                ),
                 accessorKey: 'users',
                 cell: ({ getValue }) => {
                     const users = getValue() as User[]
@@ -51,7 +106,17 @@ export const TasksDataTable = ({ data }: TasksDataTableProps) => {
                 }
             },
             {
-                header: 'About',
+                header: ({ column }) => (
+                    <Button
+                        className="pl-0"
+                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                        variant={"ghost"}
+                    >
+                        About
+                        {column.getIsSorted() === "asc" && <ArrowUp />}
+                        {column.getIsSorted() === "desc" && <ArrowDown />}
+                    </Button>
+                ),
                 accessorKey: 'description',
                 cell: ({ getValue }) => {
                     const value = getValue() as string;
