@@ -47,7 +47,7 @@ class DashboardController extends Controller
                         'projects' => fn() => $user->projects()->flatten()->unique('id')->count(),
                         'teams' => fn() => $user->teams()->count(),
                     ],
-                    'tables' => Inertia::scroll(fn() => $user->tasks()->with('users')->paginate(10))
+                    'tables' => Inertia::scroll(fn() => $user->tasks()->with('users', 'status')->paginate(10))
                 ];
         };
 

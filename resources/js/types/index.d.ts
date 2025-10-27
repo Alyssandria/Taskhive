@@ -21,6 +21,23 @@ export interface Role {
     slug: string;
 }
 
+interface PaginationLinks {
+    url: string | null
+    label: string
+    active: boolean
+}
+
+interface Paginated<T> {
+    data: T[]
+    current_page: number
+    last_page: number
+    per_page: number
+    total: number
+    from: number
+    to: number
+    links: PaginationLinks[]
+}
+
 export type AdminDashboardData = {
     cards: {
         totalProjects: number,
@@ -71,6 +88,15 @@ export interface Task {
     }[],
     status: Status,
     project_id: number;
+}
+
+export type MemberDashboardData<T> = {
+    cards: {
+        uncompletedTasks: number,
+        projects: number,
+        teams: number
+    },
+    tables: Paginated<T>
 }
 
 export interface Status {
